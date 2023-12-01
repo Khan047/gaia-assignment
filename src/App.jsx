@@ -1,45 +1,27 @@
+// Import necessary dependencies
 import React from 'react';
-import { Container, TextField, Button } from '@mui/material';
-import { styled } from '@mui/system';
-
-const FormContainer = styled('form')({
-  marginTop: '2rem',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1rem',
-});
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import RegistrationPage from './pages/RegistrationPages';
+import LoginPage from './pages/LoginPages';
 
 function App() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can add your form submission logic here
-    console.log('Form submitted');
-  };
-
   return (
-    <Container maxWidth="sm">
-      <FormContainer onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-        >
-          Submit
-        </Button>
-      </FormContainer>
-    </Container>
+    <Router>
+      <Switch>
+        {/* Route for the Registration Page */}
+        <Route exact path="/register">
+          <RegistrationPage />
+        </Route>
+
+        {/* Route for the Login Page */}
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+
+        {/* Default Route or 404 Page */}
+        {/* Add a default route or 404 page if needed */}
+      </Switch>
+    </Router>
   );
 }
 
