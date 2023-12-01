@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, TextField, Button } from '@mui/material';
+import { Container, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 const FormContainer = styled('form')({
@@ -13,25 +13,27 @@ const FormContainer = styled('form')({
 function LoginPages() {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
     console.log('Form submitted');
   };
 
   return (
     <Container maxWidth="sm">
+      <Typography variant="h3" textAlign={'center'}>Gaia Assignment</Typography>
+      <Typography variant="h4" textAlign={'center'}>Login Page</Typography>
+
       <FormContainer onSubmit={handleSubmit}>
         <TextField
           label="Email"
           variant="outlined"
           fullWidth
-          sx={{ mb: 2 }} // Add margin-bottom for spacing
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Password"
           type="password"
           variant="outlined"
           fullWidth
-          sx={{ mb: 2 }} // Add margin-bottom for spacing
+          sx={{ mb: 2 }}
         />
         <Button
           type="submit"
