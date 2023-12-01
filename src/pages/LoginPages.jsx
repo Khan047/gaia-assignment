@@ -13,22 +13,34 @@ const FormContainer = styled('form')({
 });
 
 function LoginPages() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted');
-  };
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Email is required'),
+      password: Yup.string().required('Password is required'),
+    }),
+    onSubmit: (values) => {
+      console.log('Form submitted:', values);
+    },
+  });
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h3" textAlign={'center'}>Gaia Assignment</Typography>
-      <Typography variant="h4" textAlign={'center'}>Login Page</Typography>
+      <Typography variant="h4" textAlign={'center'}>Gaia Assignment</Typography>
+      <Typography variant="h5" textAlign={'center'}>Login Page</Typography>
 
-      <FormContainer onSubmit={handleSubmit}>
+      <FormContainer onSubmit={formik.handleSubmit}>
         <TextField
           label="Email"
           variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
+          {...formik.getFieldProps('email')}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
         />
         <TextField
           label="Password"
@@ -36,6 +48,9 @@ function LoginPages() {
           variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
+          {...formik.getFieldProps('password')}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
         />
         <Button
           type="submit"

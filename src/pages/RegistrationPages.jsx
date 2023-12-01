@@ -33,7 +33,7 @@ function RegistrationPage() {
       .matches(/^[0-9]{10}$/, 'Invalid mobile number') //check for  10-digit number
     }),
     onSubmit: (values, { setSubmitting }) => {
-      setIsSnackbarOpen(true); // Open the Snackbar on successful registration
+      setIsSnackbarOpen(true);
       setTimeout(() => {
         setSubmitting(false);
         console.log('Registration Form submitted:', values);
@@ -48,10 +48,10 @@ function RegistrationPage() {
   };
   return (
     <Container maxWidth="sm">
-      <Typography variant="h3" textAlign={'center'}>
+      <Typography variant="h4" textAlign={'center'}>
         Gaia Assignment
       </Typography>
-      <Typography variant="h4" textAlign={'center'}>
+      <Typography variant="h5" textAlign={'center'}>
         Registration Page
       </Typography>
       <FormContainer onSubmit={formik.handleSubmit}>
@@ -105,7 +105,7 @@ function RegistrationPage() {
       </FormContainer>
       <Snackbar
         open={isSnackbarOpen}
-        autoHideDuration={3000} // Adjust as needed
+        autoHideDuration={3000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         message="Registration successful! You can now login."
