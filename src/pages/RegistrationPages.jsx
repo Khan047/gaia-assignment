@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const FormContainer = styled('form')({
   marginTop: '2rem',
@@ -15,17 +17,40 @@ function RegistrationPage() {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate(); 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      mobile: '',
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      email: Yup.string().email('Invalid email address').required('Email is required'),
+      password: Yup.string().required('Password is required'),
+      mobile: Yup.string().required('Mobile number is required'),
+    }),
+    onSubmit: (values, { setSubmitting }) => {
+      setTimeout(() => {
+        setSubmitting(false);
+        console.log('Registration Form submitted:', values);
+        // Redirect to the login page on successful registration
+        // navigate('/login'); // Use navigate from React Router
+      }, 2000); // Simulating a 2-second delay for the submission
+    },
+  });
 
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('Registration Form submitted');
-      console.log('...Redirecting to Login screen');
-      navigate('/login');
-    }, 2000); // Simulating a 2-second delay for the submission
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //     console.log('Registration Form submitted');
+  //     console.log('...Redirecting to Login screen');
+  //     navigate('/login');
+  //   }, 2000); // Simulating a 2-second delay for the submission
+  // };
 
   return (
     <Container maxWidth="sm">
@@ -36,8 +61,16 @@ function RegistrationPage() {
         Registration Page
       </Typography>
 
-      <FormContainer onSubmit={handleSubmit}>
-        <TextField label="Name" variant="outlined" fullWidth sx={{ mb: 2 }} />
+      <FormContainer onSubmit={formik.handleSubmit}>
+        <TextField 
+          label="Name" 
+          variant="outlined" 
+          fullWidth 
+          sx={{ mb: 2 }} 
+          {...formik.getFieldProps('name')}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+        />
         <TextField label="Email" variant="outlined" fullWidth sx={{ mb: 2 }} />
         <TextField
           label="Password"
