@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, TextField, Button, Typography } from '@mui/material';
+import React, {useState} from 'react';
+import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
 
 const FormContainer = styled('form')({
@@ -11,9 +11,17 @@ const FormContainer = styled('form')({
 });
 
 function RegistrationPage() {
+  const [isLoading, setIsLoading] = useState(false)
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Registration Form submitted');
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      console.log('Registration Form submitted');
+      console.log('...Redirecting to Login screen');
+    }, 2000); // Simulating a 2-second delay for the submission
   };
 
   return (
@@ -41,8 +49,15 @@ function RegistrationPage() {
           fullWidth
           sx={{ mb: 2 }}
         />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Register
+        <Button 
+          type="submit" 
+          variant="contained" 
+          color="primary" 
+          fullWidth 
+          disabled={isLoading} 
+          sx={{ padding: 1.5 }}
+        >
+          {isLoading ? <CircularProgress size={24} /> : 'Register'} 
         </Button>
       </FormContainer>
     </Container>
