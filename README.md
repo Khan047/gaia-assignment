@@ -21,7 +21,7 @@ This application is a simple registration and login system built using React as 
 - Form validation using Formik and Yup schema.
 
 ## Demo
-- Demo [here](https://funny-profiterole-797590.netlify.app/register)
+- Demo [here](https://funny-profiterole-797590.netlify.app)
 ## Installation
 
 To run this project locally, follow these steps:
