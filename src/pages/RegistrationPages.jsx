@@ -14,7 +14,6 @@ const FormContainer = styled('form')({
 });
 
 function RegistrationPage() {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate(); 
 
   const formik = useFormik({
@@ -28,14 +27,16 @@ function RegistrationPage() {
       name: Yup.string().required('Name is required'),
       email: Yup.string().email('Invalid email address').required('Email is required'),
       password: Yup.string().required('Password is required'),
-      mobile: Yup.string().required('Mobile number is required'),
+      mobile: Yup.string()
+      .required('Mobile number is required')
+      .matches(/^[0-9]{10}$/, 'Invalid mobile number') //check for  10-digit number
     }),
     onSubmit: (values, { setSubmitting }) => {
       setTimeout(() => {
         setSubmitting(false);
         console.log('Registration Form submitted:', values);
         // Redirect to the login page on successful registration
-        // navigate('/login'); // Use navigate from React Router
+        navigate('/login'); // Use navigate from React Router
       }, 2000); // Simulating a 2-second delay for the submission
     },
   });
@@ -71,29 +72,43 @@ function RegistrationPage() {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
         />
-        <TextField label="Email" variant="outlined" fullWidth sx={{ mb: 2 }} />
+        <TextField
+          label="Email" 
+          variant="outlined"
+          fullWidth 
+          sx={{ mb: 2 }}         
+          {...formik.getFieldProps('email')}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email} 
+          />
         <TextField
           label="Password"
           type="password"
           variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
+          {...formik.getFieldProps('password')}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
         />
         <TextField
           label="Mobile Number"
           variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
+          {...formik.getFieldProps('mobile')}
+          error={formik.touched.mobile && Boolean(formik.errors.mobile)}
+          helperText={formik.touched.mobile && formik.errors.mobile}
         />
         <Button 
           type="submit" 
           variant="contained" 
           color="primary" 
           fullWidth 
-          disabled={isLoading} 
+          disabled={formik.isSubmitting} 
           sx={{ padding: 1.5 }}
         >
-          {isLoading ? <CircularProgress size={24} /> : 'Register'} 
+          {formik.isSubmitting ? <CircularProgress size={24} /> : 'Register'}
         </Button>
       </FormContainer>
     </Container>
