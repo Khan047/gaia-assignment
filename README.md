@@ -1,8 +1,32 @@
-# React + Vite
+# Gaia Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a registration and login application built with React, Formik, and Material-UI.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Gaia Assignment](#gaia-assignment)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Demo](#demo)
+  - [Installation](#installation)
+
+## Introduction
+
+This application is a simple registration and login system built using React as the frontend framework. It uses Formik for form management and validation, and Material-UI for styling and components.
+
+## Features
+
+- User registration with email, password, and mobile number.
+- Form validation using Formik and Yup schema.
+
+## Demo
+-
+## Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/gaia-assignment.git
