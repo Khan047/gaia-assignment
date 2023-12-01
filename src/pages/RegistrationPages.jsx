@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 const FormContainer = styled('form')({
   marginTop: '2rem',
@@ -12,7 +13,8 @@ const FormContainer = styled('form')({
 
 function RegistrationPage() {
   const [isLoading, setIsLoading] = useState(false)
-  
+  const navigate = useNavigate(); 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -21,6 +23,7 @@ function RegistrationPage() {
       setIsLoading(false);
       console.log('Registration Form submitted');
       console.log('...Redirecting to Login screen');
+      navigate('/login');
     }, 2000); // Simulating a 2-second delay for the submission
   };
 

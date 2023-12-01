@@ -40,6 +40,7 @@ function LoginPages() {
           variant="contained"
           color="primary"
           fullWidth
+          sx={{ padding: 1.5 }}
         >
           Submit
         </Button>
