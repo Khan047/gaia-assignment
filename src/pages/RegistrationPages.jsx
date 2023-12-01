@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
+import { Container, TextField, Button, Typography, CircularProgress, Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -15,6 +15,7 @@ const FormContainer = styled('form')({
 
 function RegistrationPage() {
   const navigate = useNavigate(); 
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -32,27 +33,19 @@ function RegistrationPage() {
       .matches(/^[0-9]{10}$/, 'Invalid mobile number') //check for  10-digit number
     }),
     onSubmit: (values, { setSubmitting }) => {
+      setIsSnackbarOpen(true); // Open the Snackbar on successful registration
       setTimeout(() => {
         setSubmitting(false);
         console.log('Registration Form submitted:', values);
         // Redirect to the login page on successful registration
-        navigate('/login'); // Use navigate from React Router
+        navigate('/login');
       }, 2000); // Simulating a 2-second delay for the submission
     },
   });
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //     console.log('Registration Form submitted');
-  //     console.log('...Redirecting to Login screen');
-  //     navigate('/login');
-  //   }, 2000); // Simulating a 2-second delay for the submission
-  // };
-
+  const handleCloseSnackbar = () => {
+    setIsSnackbarOpen(false);
+  };
   return (
     <Container maxWidth="sm">
       <Typography variant="h3" textAlign={'center'}>
@@ -61,7 +54,6 @@ function RegistrationPage() {
       <Typography variant="h4" textAlign={'center'}>
         Registration Page
       </Typography>
-
       <FormContainer onSubmit={formik.handleSubmit}>
         <TextField 
           label="Name" 
@@ -111,6 +103,17 @@ function RegistrationPage() {
           {formik.isSubmitting ? <CircularProgress size={24} /> : 'Register'}
         </Button>
       </FormContainer>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={3000} // Adjust as needed
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        message="Registration successful! You can now login."
+      >
+        <Alert severity="success" color="success">
+          You are now registered
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
